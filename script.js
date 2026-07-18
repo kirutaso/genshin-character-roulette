@@ -1,35 +1,16 @@
 const spinButton = document.getElementById("spinButton");
-
 const partyButton = document.getElementById("partyButton");
-
 const abyssButton = document.getElementById("abyssButton");
 
+const characterImage = document.getElementById("characterImage");
+const characterName = document.getElementById("characterName");
+const characterInfo = document.getElementById("characterInfo");
 
-const characterImage =
-document.getElementById("characterImage");
+const characterList = document.getElementById("characterList");
 
-const characterName =
-document.getElementById("characterName");
-
-const characterInfo =
-document.getElementById("characterInfo");
-
-
-const characterList =
-document.getElementById("characterList");
-
-
-const partyList =
-document.getElementById("partyList");
-
-
-const abyssList =
-document.getElementById("abyssList");
-
-
-const historyBox =
-document.getElementById("history");
-
+const partyList = document.getElementById("partyList");
+const abyssList = document.getElementById("abyssList");
+const historyBox = document.getElementById("history");
 
 
 let characters = [];
@@ -38,43 +19,35 @@ let history = [];
 
 
 
-
+// =====================
 // キャラ読み込み
+// =====================
 
 async function loadCharacters(){
 
-
     try{
 
+        const response = await fetch("characters.json");
 
-        const response =
-        await fetch("characters.json");
-
-
-        characters =
-        await response.json();
+        characters = await response.json();
 
 
-
-        characterName.textContent =
-        "準備完了！";
-
+        characterName.textContent = "準備完了！";
 
         characterInfo.textContent =
         `${characters.length}人読み込み完了`;
 
 
-
         createCharacterList();
 
 
-    }
-    catch(error){
-
+    }catch(error){
 
         characterName.textContent =
         "読み込み失敗";
 
+        characterInfo.textContent =
+        "characters.jsonを確認してね";
 
         console.error(error);
 
@@ -84,12 +57,11 @@ async function loadCharacters(){
 
 
 
-
-
+// =====================
 // キャラ一覧
+// =====================
 
 function createCharacterList(){
-
 
     characterList.innerHTML="";
 
@@ -114,7 +86,6 @@ function createCharacterList(){
         `;
 
 
-
         div.onclick = ()=>{
 
             showCharacter(character);
@@ -122,20 +93,19 @@ function createCharacterList(){
         };
 
 
-
         characterList.appendChild(div);
 
 
     });
-
 
 }
 
 
 
 
-
+// =====================
 // キャラ表示
+// =====================
 
 function showCharacter(character){
 
@@ -151,34 +121,36 @@ function showCharacter(character){
     characterInfo.textContent =
     `★${character.rarity}　${character.element}`;
 
-
 }
 
 
 
 
 
+// =====================
 // 1人抽選
+// =====================
 
 function spinCharacter(){
 
 
-    if(characters.length===0)
-    return;
+    if(characters.length === 0){
+
+        return;
+
+    }
 
 
+    spinButton.disabled = true;
 
-    spinButton.disabled=true;
 
-
-    let count=0;
+    let count = 0;
 
     let result;
 
 
 
-    const timer =
-    setInterval(()=>{
+    const timer = setInterval(()=>{
 
 
         result =
@@ -189,17 +161,15 @@ function spinCharacter(){
         ];
 
 
-
         characterName.textContent =
         result.name;
-
 
 
         count++;
 
 
 
-        if(count>25){
+        if(count >= 25){
 
 
             clearInterval(timer);
@@ -226,8 +196,9 @@ function spinCharacter(){
 
 
 
-
+// =====================
 // 4人パーティ
+// =====================
 
 function createParty(){
 
@@ -240,6 +211,17 @@ function createParty(){
 
 
 
+    if(party.length === 0){
+
+        partyList.innerHTML =
+        "<p>キャラがいません</p>";
+
+        return;
+
+    }
+
+
+
     party.forEach(character=>{
 
 
@@ -249,9 +231,7 @@ function createParty(){
 
         <img src="${character.image}">
 
-        <p>
-        ${character.name}
-        </p>
+        <p>${character.name}</p>
 
         </div>
 
@@ -267,8 +247,9 @@ function createParty(){
 
 
 
-
+// =====================
 // 螺旋8人
+// =====================
 
 function createAbyss(){
 
@@ -290,9 +271,7 @@ function createAbyss(){
 
         <img src="${character.image}">
 
-        <p>
-        ${index+1}人目 ${character.name}
-        </p>
+        <p>${index+1}人目 ${character.name}</p>
 
         </div>
 
@@ -308,25 +287,25 @@ function createAbyss(){
 
 
 
-// 重複なしランダム
+// =====================
+// 重複なし抽選
+// =====================
 
 function randomCharacters(number){
 
 
-    let copy =
+    const copy =
     [...characters];
 
 
-    let result=[];
+    const result=[];
 
 
 
-    for(let i=0;i<number;i++){
-
-
-        if(copy.length===0)
-        break;
-
+    while(
+        result.length < number &&
+        copy.length > 0
+    ){
 
 
         const index =
@@ -335,11 +314,9 @@ function randomCharacters(number){
         );
 
 
-
         result.push(
             copy[index]
         );
-
 
 
         copy.splice(index,1);
@@ -357,7 +334,9 @@ function randomCharacters(number){
 
 
 
+// =====================
 // 履歴
+// =====================
 
 function addHistory(character){
 
@@ -366,7 +345,7 @@ function addHistory(character){
 
 
 
-    if(history.length>10){
+    if(history.length > 10){
 
         history.pop();
 
@@ -395,19 +374,30 @@ function addHistory(character){
 
 
 
+// =====================
+// ボタン
+// =====================
 
-spinButton.onclick =
-spinCharacter;
-
-
-partyButton.onclick =
-createParty;
-
-
-abyssButton.onclick =
-createAbyss;
+spinButton.addEventListener(
+"click",
+spinCharacter
+);
 
 
+partyButton.addEventListener(
+"click",
+createParty
+);
 
+
+abyssButton.addEventListener(
+"click",
+createAbyss
+);
+
+
+
+
+// 起動
 
 loadCharacters();
