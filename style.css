@@ -8,6 +8,8 @@ body{
     margin:0;
     padding:0;
 
+    min-height:100vh;
+
     background:
     linear-gradient(
         135deg,
@@ -22,8 +24,6 @@ body{
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-
-    min-height:100vh;
 
 }
 
@@ -43,9 +43,10 @@ body{
 
 
 
-h1{
 
-    margin-top:25px;
+header h1{
+
+    margin-top:20px;
 
     font-size:32px;
 
@@ -61,19 +62,23 @@ header p{
 
 
 
+
+
 /* キャラ表示 */
 
 #characterCard{
 
-    margin-top:30px;
+    margin-top:25px;
 
-    background:#1e293b;
+    background:
+    rgba(30,41,59,.9);
 
     border-radius:25px;
 
     padding:25px;
 
     box-shadow:
+
     0 0 30px rgba(255,255,255,.15);
 
 }
@@ -90,8 +95,6 @@ header p{
 
     border-radius:25px;
 
-    background:#111827;
-
 }
 
 
@@ -100,7 +103,7 @@ header p{
 
     font-size:30px;
 
-    margin-top:20px;
+    margin:20px 0 10px;
 
 }
 
@@ -114,7 +117,9 @@ header p{
 
 
 
-/* メニュー */
+
+
+/* ボタン */
 
 .menu{
 
@@ -132,6 +137,8 @@ header p{
 
 button{
 
+    width:100%;
+
     padding:16px;
 
     border:none;
@@ -142,14 +149,15 @@ button{
 
     color:white;
 
+    cursor:pointer;
+
     background:
+
     linear-gradient(
         135deg,
         #3b82f6,
         #8b5cf6
     );
-
-    cursor:pointer;
 
     transition:.2s;
 
@@ -181,11 +189,38 @@ button:disabled{
 
 
 
+
+
+/* 各ページ */
+
+section{
+
+    margin-top:30px;
+
+}
+
+
+
+#characterListPage,
+#partyArea,
+#abyssArea,
+#historyArea,
+#settingArea{
+
+    background:#1e293b;
+
+    border-radius:20px;
+
+    padding:20px;
+
+}
+
+
+
+
 /* キャラ一覧 */
 
 #characterList{
-
-    margin-top:30px;
 
     display:grid;
 
@@ -200,13 +235,15 @@ button:disabled{
 
 .characterItem{
 
-    background:#1e293b;
+    background:#334155;
 
     border-radius:15px;
 
     padding:10px;
 
     cursor:pointer;
+
+    transition:.2s;
 
 }
 
@@ -244,19 +281,60 @@ button:disabled{
 
 
 
-/* 履歴 */
 
-#history{
 
-    margin-top:25px;
+/* パーティ・螺旋カード */
 
-    color:#cbd5e1;
+.partyCharacter,
+.abyssCharacter{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#334155;
+
+    padding:10px;
+
+    margin:8px 0;
+
+    border-radius:12px;
 
 }
 
 
 
+.partyCharacter img,
+.abyssCharacter img{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:10px;
+
+}
+
+
+
+
+
+/* 履歴 */
+
+#history p{
+
+    margin:8px;
+
+}
+
+
+
+
+
 @media(max-width:400px){
+
 
     #characterList{
 
