@@ -2,56 +2,88 @@
     box-sizing:border-box;
 }
 
+
 body{
+
     margin:0;
     padding:0;
+
     background:
-        linear-gradient(
-            135deg,
-            #0f172a,
-            #1e293b
-        );
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b
+    );
+
     color:white;
+
     font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
     min-height:100vh;
+
 }
+
+
 
 #app{
+
     max-width:450px;
+
     margin:auto;
+
     padding:20px;
+
     text-align:center;
+
 }
 
-/* タイトル */
+
+
 h1{
+
     margin-top:25px;
+
     font-size:32px;
-    letter-spacing:2px;
+
 }
 
 
-/* キャラ表示カード */
+
+header p{
+
+    color:#cbd5e1;
+
+}
+
+
+
+/* キャラ表示 */
+
 #characterCard{
-    margin-top:35px;
-    background:rgba(30,41,59,.9);
+
+    margin-top:30px;
+
+    background:#1e293b;
+
     border-radius:25px;
+
     padding:25px;
 
     box-shadow:
-        0 0 30px rgba(255,255,255,.15);
+    0 0 30px rgba(255,255,255,.15);
 
-    transition:.3s;
 }
 
 
-/* キャラ画像 */
+
 #characterImage{
+
     width:240px;
+
     height:240px;
 
     object-fit:cover;
@@ -60,84 +92,97 @@ h1{
 
     background:#111827;
 
-    box-shadow:
-        0 0 20px rgba(59,130,246,.5);
 }
 
 
-/* キャラ名 */
+
 #characterName{
-    margin-top:20px;
 
     font-size:30px;
 
-    font-weight:bold;
+    margin-top:20px;
+
 }
 
 
-/* キャラ情報 */
+
 #characterInfo{
-    margin-top:10px;
 
     color:#cbd5e1;
 
-    font-size:16px;
 }
 
 
-/* ボタン共通 */
+
+/* メニュー */
+
+.menu{
+
+    margin-top:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+
+
 button{
+
+    padding:16px;
 
     border:none;
 
     border-radius:15px;
 
-    cursor:pointer;
-
-    font-size:20px;
+    font-size:18px;
 
     color:white;
 
-    transition:.2s;
-}
-
-
-/* ルーレットボタン */
-#spinButton{
-
-    margin-top:35px;
-
-    width:100%;
-
-    padding:18px;
-
     background:
-        linear-gradient(
-            135deg,
-            #3b82f6,
-            #8b5cf6
-        );
+    linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
 
-    box-shadow:
-        0 5px 15px rgba(59,130,246,.4);
-}
+    cursor:pointer;
 
-
-#spinButton:hover{
-
-    transform:scale(1.05);
+    transition:.2s;
 
 }
 
 
-#spinButton:active{
 
-    transform:scale(.95);
+button:hover{
+
+    transform:scale(1.03);
 
 }
+
+
+
+button:active{
+
+    transform:scale(.96);
+
+}
+
+
+
+button:disabled{
+
+    opacity:.5;
+
+}
+
 
 
 /* キャラ一覧 */
+
 #characterList{
 
     margin-top:30px;
@@ -145,10 +190,12 @@ button{
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+    repeat(3,1fr);
 
     gap:12px;
+
 }
+
 
 
 .characterItem{
@@ -161,17 +208,16 @@ button{
 
     cursor:pointer;
 
-    transition:.2s;
 }
+
 
 
 .characterItem:hover{
 
     transform:translateY(-5px);
 
-    background:#334155;
-
 }
+
 
 
 .characterItem img{
@@ -187,6 +233,7 @@ button{
 }
 
 
+
 .characterItem p{
 
     margin:8px 0 0;
@@ -196,31 +243,34 @@ button{
 }
 
 
-/* 選択された時 */
-.selected{
 
-    box-shadow:
-        0 0 20px #60a5fa;
+/* 履歴 */
+
+#history{
+
+    margin-top:25px;
+
+    color:#cbd5e1;
 
 }
 
 
-/* スマホ調整 */
+
 @media(max-width:400px){
+
+    #characterList{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
 
     #characterImage{
 
         width:200px;
 
         height:200px;
-
-    }
-
-
-    #characterList{
-
-        grid-template-columns:
-            repeat(2,1fr);
 
     }
 
