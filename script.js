@@ -1,14 +1,35 @@
 const spinButton = document.getElementById("spinButton");
 
-const characterName = document.getElementById("characterName");
-const characterImage = document.getElementById("characterImage");
-const characterInfo = document.getElementById("characterInfo");
+const partyButton = document.getElementById("partyButton");
 
-const characterList = document.getElementById("characterList");
-const historyBox = document.getElementById("history");
+const abyssButton = document.getElementById("abyssButton");
 
-const characterListButton =
-document.getElementById("characterListButton");
+
+const characterImage =
+document.getElementById("characterImage");
+
+const characterName =
+document.getElementById("characterName");
+
+const characterInfo =
+document.getElementById("characterInfo");
+
+
+const characterList =
+document.getElementById("characterList");
+
+
+const partyList =
+document.getElementById("partyList");
+
+
+const abyssList =
+document.getElementById("abyssList");
+
+
+const historyBox =
+document.getElementById("history");
+
 
 
 let characters = [];
@@ -17,15 +38,14 @@ let history = [];
 
 
 
-// キャラデータ読み込み
+
+// キャラ読み込み
 
 async function loadCharacters(){
 
-    characterName.textContent =
-    "読み込み中...";
-
 
     try{
+
 
         const response =
         await fetch("characters.json");
@@ -33,6 +53,7 @@ async function loadCharacters(){
 
         characters =
         await response.json();
+
 
 
         characterName.textContent =
@@ -43,11 +64,13 @@ async function loadCharacters(){
         `${characters.length}人読み込み完了`;
 
 
+
         createCharacterList();
 
 
     }
     catch(error){
+
 
         characterName.textContent =
         "読み込み失敗";
@@ -62,7 +85,8 @@ async function loadCharacters(){
 
 
 
-// キャラ一覧作成
+
+// キャラ一覧
 
 function createCharacterList(){
 
@@ -73,15 +97,15 @@ function createCharacterList(){
     characters.forEach(character=>{
 
 
-        const card =
+        const div =
         document.createElement("div");
 
 
-        card.className =
+        div.className =
         "characterItem";
 
 
-        card.innerHTML = `
+        div.innerHTML = `
 
         <img src="${character.image}">
 
@@ -90,19 +114,23 @@ function createCharacterList(){
         `;
 
 
-        card.onclick = ()=>{
+
+        div.onclick = ()=>{
 
             showCharacter(character);
 
         };
 
 
-        characterList.appendChild(card);
+
+        characterList.appendChild(div);
 
 
     });
 
+
 }
+
 
 
 
@@ -112,12 +140,12 @@ function createCharacterList(){
 function showCharacter(character){
 
 
-    characterName.textContent =
-    character.name;
-
-
     characterImage.src =
     character.image;
+
+
+    characterName.textContent =
+    character.name;
 
 
     characterInfo.textContent =
@@ -129,13 +157,14 @@ function showCharacter(character){
 
 
 
-// ランダム抽選
+
+// 1人抽選
 
 function spinCharacter(){
 
 
     if(characters.length===0)
-        return;
+    return;
 
 
 
@@ -160,8 +189,10 @@ function spinCharacter(){
         ];
 
 
+
         characterName.textContent =
         result.name;
+
 
 
         count++;
@@ -188,17 +219,151 @@ function spinCharacter(){
 
     },80);
 
+
 }
 
 
 
 
-// 履歴追加
+
+
+// 4人パーティ
+
+function createParty(){
+
+
+    partyList.innerHTML="";
+
+
+    const party =
+    randomCharacters(4);
+
+
+
+    party.forEach(character=>{
+
+
+        partyList.innerHTML += `
+
+        <div class="partyCharacter">
+
+        <img src="${character.image}">
+
+        <p>
+        ${character.name}
+        </p>
+
+        </div>
+
+        `;
+
+
+    });
+
+
+}
+
+
+
+
+
+
+// 螺旋8人
+
+function createAbyss(){
+
+
+    abyssList.innerHTML="";
+
+
+    const team =
+    randomCharacters(8);
+
+
+
+    team.forEach((character,index)=>{
+
+
+        abyssList.innerHTML += `
+
+        <div class="abyssCharacter">
+
+        <img src="${character.image}">
+
+        <p>
+        ${index+1}人目 ${character.name}
+        </p>
+
+        </div>
+
+        `;
+
+
+    });
+
+
+}
+
+
+
+
+
+// 重複なしランダム
+
+function randomCharacters(number){
+
+
+    let copy =
+    [...characters];
+
+
+    let result=[];
+
+
+
+    for(let i=0;i<number;i++){
+
+
+        if(copy.length===0)
+        break;
+
+
+
+        const index =
+        Math.floor(
+            Math.random()*copy.length
+        );
+
+
+
+        result.push(
+            copy[index]
+        );
+
+
+
+        copy.splice(index,1);
+
+
+    }
+
+
+    return result;
+
+
+}
+
+
+
+
+
+// 履歴
 
 function addHistory(character){
 
 
     history.unshift(character);
+
 
 
     if(history.length>10){
@@ -208,30 +373,21 @@ function addHistory(character){
     }
 
 
-    showHistory();
 
-}
+    historyBox.innerHTML="";
 
-
-
-
-// 履歴表示
-
-function showHistory(){
-
-
-    historyBox.innerHTML =
-    "<h3>📜 履歴</h3>";
 
 
     history.forEach(c=>{
 
 
         historyBox.innerHTML +=
+
         `<p>${c.name}</p>`;
 
 
     });
+
 
 }
 
@@ -239,24 +395,18 @@ function showHistory(){
 
 
 
-spinButton.addEventListener(
-"click",
-spinCharacter
-);
+
+spinButton.onclick =
+spinCharacter;
 
 
-
-characterListButton.onclick = ()=>{
-
-
-    characterList.scrollIntoView({
-
-        behavior:"smooth"
-
-    });
+partyButton.onclick =
+createParty;
 
 
-};
+abyssButton.onclick =
+createAbyss;
+
 
 
 
