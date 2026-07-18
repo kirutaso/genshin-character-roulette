@@ -5,43 +5,55 @@ const characterImage = document.getElementById("characterImage");
 const characterInfo = document.getElementById("characterInfo");
 
 const characterList = document.getElementById("characterList");
+const historyBox = document.getElementById("history");
+
+const characterListButton =
+document.getElementById("characterListButton");
+
 
 let characters = [];
 
+let history = [];
 
-// データ読み込み
+
+
+// キャラデータ読み込み
+
 async function loadCharacters(){
 
-    characterName.textContent = "読み込み中...";
-    characterInfo.textContent = "";
+    characterName.textContent =
+    "読み込み中...";
+
 
     try{
 
         const response =
         await fetch("characters.json");
 
+
         characters =
         await response.json();
 
 
-        characterName.textContent = "準備完了！";
+        characterName.textContent =
+        "準備完了！";
+
 
         characterInfo.textContent =
-        `${characters.length}人のキャラを読み込みました`;
+        `${characters.length}人読み込み完了`;
 
 
-        displayCharacters();
+        createCharacterList();
 
 
-    }catch(e){
+    }
+    catch(error){
 
         characterName.textContent =
         "読み込み失敗";
 
-        characterInfo.textContent =
-        "characters.json が見つかりません";
 
-        console.error(e);
+        console.error(error);
 
     }
 
@@ -49,40 +61,43 @@ async function loadCharacters(){
 
 
 
-// キャラ一覧表示
-function displayCharacters(){
 
-    characterList.innerHTML = "";
+// キャラ一覧作成
+
+function createCharacterList(){
+
+
+    characterList.innerHTML="";
 
 
     characters.forEach(character=>{
 
 
-        const div =
+        const card =
         document.createElement("div");
 
 
-        div.className =
+        card.className =
         "characterItem";
 
 
-        div.innerHTML = `
+        card.innerHTML = `
 
-            <img src="${character.image}">
+        <img src="${character.image}">
 
-            <p>${character.name}</p>
+        <p>${character.name}</p>
 
         `;
 
 
-        div.addEventListener("click",()=>{
+        card.onclick = ()=>{
 
             showCharacter(character);
 
-        });
+        };
 
 
-        characterList.appendChild(div);
+        characterList.appendChild(card);
 
 
     });
@@ -91,7 +106,9 @@ function displayCharacters(){
 
 
 
+
 // キャラ表示
+
 function showCharacter(character){
 
 
@@ -106,35 +123,36 @@ function showCharacter(character){
     characterInfo.textContent =
     `★${character.rarity}　${character.element}`;
 
+
 }
 
 
 
+
 // ランダム抽選
+
 function spinCharacter(){
 
 
-    if(characters.length === 0){
-
+    if(characters.length===0)
         return;
 
-    }
 
 
-    spinButton.disabled = true;
+    spinButton.disabled=true;
 
 
-    let count = 0;
+    let count=0;
+
+    let result;
 
 
-    let randomCharacter;
 
-
-    const interval =
+    const timer =
     setInterval(()=>{
 
 
-        randomCharacter =
+        result =
         characters[
             Math.floor(
                 Math.random()*characters.length
@@ -143,22 +161,26 @@ function spinCharacter(){
 
 
         characterName.textContent =
-        randomCharacter.name;
+        result.name;
 
 
         count++;
 
 
-        if(count > 25){
+
+        if(count>25){
 
 
-            clearInterval(interval);
+            clearInterval(timer);
 
 
-            showCharacter(randomCharacter);
+            showCharacter(result);
 
 
-            spinButton.disabled = false;
+            addHistory(result);
+
+
+            spinButton.disabled=false;
 
 
         }
@@ -166,15 +188,76 @@ function spinCharacter(){
 
     },80);
 
+}
+
+
+
+
+// 履歴追加
+
+function addHistory(character){
+
+
+    history.unshift(character);
+
+
+    if(history.length>10){
+
+        history.pop();
+
+    }
+
+
+    showHistory();
 
 }
 
 
 
+
+// 履歴表示
+
+function showHistory(){
+
+
+    historyBox.innerHTML =
+    "<h3>📜 履歴</h3>";
+
+
+    history.forEach(c=>{
+
+
+        historyBox.innerHTML +=
+        `<p>${c.name}</p>`;
+
+
+    });
+
+}
+
+
+
+
+
 spinButton.addEventListener(
-    "click",
-    spinCharacter
+"click",
+spinCharacter
 );
+
+
+
+characterListButton.onclick = ()=>{
+
+
+    characterList.scrollIntoView({
+
+        behavior:"smooth"
+
+    });
+
+
+};
+
 
 
 loadCharacters();
