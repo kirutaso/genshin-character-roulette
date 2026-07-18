@@ -1,0 +1,32 @@
+[
+  {
+    "name": "胡桃",
+    "rarity": 5,
+    "element": "炎",
+    "image": "https://enka.network/ui/UI_AvatarIcon_Hutao.png"
+  },
+  {
+    "name": "フリーナ",
+    "rarity": 5,
+    "element": "水",
+    "image": "https://enka.network/ui/UI_AvatarIcon_Furina.png"
+  },
+  {
+    "name": "ナヒーダ",
+    "rarity": 5,
+    "element": "草",
+    "image": "https://enka.network/ui/UI_AvatarIcon_Nahida.png"
+  },
+  {
+    "name": "刻晴",
+    "rarity": 5,
+    "element": "雷",
+    "image": "https://enka.network/ui/UI_AvatarIcon_Keqing.png"
+  },
+  {
+    "name": "ガイア",
+    "rarity": 4,
+    "element": "氷",
+    "image": "https://enka.network/ui/UI_AvatarIcon_Kaeya.png"
+  }
+]
