@@ -1,36 +1,72 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原神キャラルーレット</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
+<title>原神キャラルーレット</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+
+<meta name="theme-color" content="#1d2535">
+
 </head>
+
 <body>
 
 <div id="app">
 
-    <h1>🎲 原神キャラルーレット</h1>
+<header>
 
-    <div id="characterCard">
+<h1>🎲 原神キャラルーレット</h1>
+<p>Ver.1.0</p>
 
-        <img id="characterImage"
-             src=""
-             alt="キャラクター">
+</header>
 
-        <h2 id="characterName">
-            ボタンを押してスタート！
-        </h2>
+<main>
 
-        <p id="characterInfo"></p>
+<div id="characterCard">
 
-    </div>
+<img id="characterImage" src="" alt="">
 
-    <button id="spinButton">
-        ルーレット開始
-    </button>
+<h2 id="characterName">
+ボタンを押して抽選！
+</h2>
+
+<p id="characterInfo"></p>
+
+</div>
+
+<div class="menu">
+
+<button id="spinButton">
+🎲 1人抽選
+</button>
+
+<button id="partyButton">
+👥 4人パーティ
+</button>
+
+<button id="abyssButton">
+🌀 螺旋8人
+</button>
+
+<button id="characterListButton">
+📖 キャラ一覧
+</button>
+
+<button id="historyButton">
+📜 履歴
+</button>
+
+<button id="settingButton">
+⚙️ 設定
+</button>
+
+</div>
+
+</main>
 
 </div>
 
