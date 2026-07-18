@@ -4,13 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>原神キャラルーレット</title>
 
 <link rel="manifest" href="manifest.json">
-
 <link rel="stylesheet" href="style.css">
 
 <meta name="theme-color" content="#1d2535">
@@ -28,7 +26,7 @@
 
 <h1>🎲 原神キャラルーレット</h1>
 
-<p>Ver.2.0</p>
+<p>Ver.1.1</p>
 
 </header>
 
@@ -37,23 +35,31 @@
 <main>
 
 
+
 <!-- キャラ表示 -->
 
-<section id="characterCard">
+<div id="characterCard">
 
 
-<img id="characterImage" src="" alt="">
+<img 
+id="characterImage"
+src=""
+alt="">
+
 
 
 <h2 id="characterName">
+
 ボタンを押して抽選！
+
 </h2>
+
 
 
 <p id="characterInfo"></p>
 
 
-</section>
+</div>
 
 
 
@@ -94,7 +100,9 @@
 </button>
 
 
+
 </div>
+
 
 
 
@@ -102,7 +110,7 @@
 
 <!-- キャラ一覧 -->
 
-<section id="characterListPage">
+<section id="characterArea">
 
 
 <h2>
@@ -110,10 +118,42 @@
 </h2>
 
 
+
+<input
+id="searchBox"
+placeholder="キャラ名検索">
+
+
+
+<div class="filterButtons">
+
+
+<button id="allFilter">
+全部
+</button>
+
+
+<button id="fiveFilter">
+★5
+</button>
+
+
+<button id="fourFilter">
+★4
+</button>
+
+
+
+</div>
+
+
+
 <div id="characterList"></div>
 
 
 </section>
+
+
 
 
 
@@ -138,6 +178,8 @@
 
 
 
+
+
 <!-- 螺旋 -->
 
 <section id="abyssArea">
@@ -152,6 +194,9 @@
 
 
 </section>
+
+
+
 
 
 
@@ -176,6 +221,9 @@
 
 
 
+
+
+
 <!-- 設定 -->
 
 <section id="settingArea">
@@ -195,11 +243,13 @@
 
 
 
+
+
 </main>
 
 
-
 </div>
+
 
 
 
@@ -208,5 +258,6 @@
 
 
 </body>
+
 
 </html>
