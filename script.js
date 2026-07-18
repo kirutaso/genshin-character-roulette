@@ -1,28 +1,45 @@
 const spinButton = document.getElementById("spinButton");
+
 const characterName = document.getElementById("characterName");
 const characterImage = document.getElementById("characterImage");
 const characterInfo = document.getElementById("characterInfo");
 
+const characterList = document.getElementById("characterList");
+
 let characters = [];
 
+
 // データ読み込み
-async function loadCharacters() {
+async function loadCharacters(){
 
     characterName.textContent = "読み込み中...";
     characterInfo.textContent = "";
 
-    try {
+    try{
 
-        const response = await fetch("characters.json");
-        characters = await response.json();
+        const response =
+        await fetch("characters.json");
+
+        characters =
+        await response.json();
+
 
         characterName.textContent = "準備完了！";
-        characterInfo.textContent = `${characters.length}人のキャラを読み込みました`;
 
-    } catch (e) {
+        characterInfo.textContent =
+        `${characters.length}人のキャラを読み込みました`;
 
-        characterName.textContent = "読み込み失敗";
-        characterInfo.textContent = "characters.json が見つかりません";
+
+        displayCharacters();
+
+
+    }catch(e){
+
+        characterName.textContent =
+        "読み込み失敗";
+
+        characterInfo.textContent =
+        "characters.json が見つかりません";
 
         console.error(e);
 
@@ -30,43 +47,134 @@ async function loadCharacters() {
 
 }
 
-// ランダム抽選
-function spinCharacter(){
 
-    if(characters.length === 0){
-        return;
-    }
 
-    spinButton.disabled = true;
+// キャラ一覧表示
+function displayCharacters(){
 
-    let count = 0;
+    characterList.innerHTML = "";
 
-    const interval = setInterval(()=>{
 
-        const random =
-            characters[Math.floor(Math.random()*characters.length)];
+    characters.forEach(character=>{
 
-        characterName.textContent = random.name;
 
-        count++;
+        const div =
+        document.createElement("div");
 
-        if(count > 25){
 
-            clearInterval(interval);
+        div.className =
+        "characterItem";
 
-            characterImage.src = random.image;
 
-            characterInfo.textContent =
-            `★${random.rarity}　${random.element}`;
+        div.innerHTML = `
 
-            spinButton.disabled = false;
+            <img src="${character.image}">
 
-        }
+            <p>${character.name}</p>
 
-    },80);
+        `;
+
+
+        div.addEventListener("click",()=>{
+
+            showCharacter(character);
+
+        });
+
+
+        characterList.appendChild(div);
+
+
+    });
 
 }
 
-spinButton.addEventListener("click",spinCharacter);
+
+
+// キャラ表示
+function showCharacter(character){
+
+
+    characterName.textContent =
+    character.name;
+
+
+    characterImage.src =
+    character.image;
+
+
+    characterInfo.textContent =
+    `★${character.rarity}　${character.element}`;
+
+}
+
+
+
+// ランダム抽選
+function spinCharacter(){
+
+
+    if(characters.length === 0){
+
+        return;
+
+    }
+
+
+    spinButton.disabled = true;
+
+
+    let count = 0;
+
+
+    let randomCharacter;
+
+
+    const interval =
+    setInterval(()=>{
+
+
+        randomCharacter =
+        characters[
+            Math.floor(
+                Math.random()*characters.length
+            )
+        ];
+
+
+        characterName.textContent =
+        randomCharacter.name;
+
+
+        count++;
+
+
+        if(count > 25){
+
+
+            clearInterval(interval);
+
+
+            showCharacter(randomCharacter);
+
+
+            spinButton.disabled = false;
+
+
+        }
+
+
+    },80);
+
+
+}
+
+
+
+spinButton.addEventListener(
+    "click",
+    spinCharacter
+);
+
 
 loadCharacters();
