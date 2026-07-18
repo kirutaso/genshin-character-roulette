@@ -221,7 +221,10 @@ characterInfo.textContent =
 `★${character.rarity} ${character.element}`;
 
 
-}// ======================
+}
+
+
+// ======================
 // 1人抽選
 // ======================
 
